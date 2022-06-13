@@ -65,20 +65,3 @@ class Stock(BaseModel):
     @staticmethod
     def load(data):
         return __class__.Schema().load(data, session=db.session)
-
-
-@add_schema
-class Note(BaseModel):
-    __tablename__ = 'notes'
-
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), unique=True)
-    content = db.Column(db.Text())
-    visited = db.Column(db.Integer, default=0)
-
-    def dump(self):
-        return __class__.Schema().dump(self)
-
-    @staticmethod
-    def load(data):
-        return __class__.Schema().load(data, session=db.session)
