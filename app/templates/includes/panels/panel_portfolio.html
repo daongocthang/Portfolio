@@ -1,0 +1,55 @@
+<div class="col-lg-8">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-chart-simple"></i> Stock Position
+        </div>
+
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="stockTable">
+                    <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Avg. Price</th>
+                        <th>Shares</th>
+                        <th>Amount</th>
+                        <th>Profit Margin (%)</th>
+                        <th>Target Price</th>
+                        <th>Stop Loss</th>
+                        <th class="text-center">Freeroll</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form action="{{ url_for('.index') }}" method="post">
+                        {% for  s in stocks %}
+                            <tr>
+                                <td>{{ s.symbol }}</td>
+                                <td class="text-primary">{{ "{:,.2f}".format(s.price) }}</td>
+                                <td>{{ "{:,.0f}".format(s.shares) }}</td>
+                                <td>{{ "{:,.0f}".format(s.price*s.shares) }}</td>
+                                <td>{{ "{:,.0f}".format( s.ratio*100) }}</td>
+                                <td id="target-{{ s.id }}">
+                                    {% if s.target %}{{ "{:,.2f}".format(s.target) }}{% else %}
+                                        <span>FREE</span>{% endif %}</td>
+                                <td id="stop-{{ s.id }}">{{ "{:,.2f}".format(s.stop) }}</td>
+                                <td class="text-center">
+                                    <label>
+                                        <input type="checkbox" name="freeroll" value="{{ s.id }}"
+                                               {% if s.freeroll %}checked{% endif %}>
+                                    </label>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

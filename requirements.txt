@@ -1,0 +1,7 @@
+flask
+flask-sqlalchemy
+pymysql
+marshmallow-sqlalchemy
+flask-migrate
+flask-bootstrap
+Flask-WTF

@@ -1,0 +1,61 @@
+<div class="col-lg-8">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <i class="fa fa-chart-pie"></i> Overall Trade Stats
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-6 col-md-4 text-center">
+                <div class="green center" id="chartGain"
+                     data-percent="{{ "{:,.2f}".format(stats.gain.rate*100) }}"></div>
+                <div class="label-custom text-success"><span class="text-muted">Gain</span>
+                    <br> {{ "{:,.2f}".format(stats.gain.profit) }}</div>
+            </div>
+            <div class="col-xs-6 col-md-4 text-center">
+                <div class="red center" id="chartLoss"
+                     data-percent="{{ "{:,.2f}".format(stats.loss.rate*100) }}"></div>
+                <div class="text-danger label-custom"><span class="text-muted">Loss</span>
+                    <br> {{ "{:,.2f}".format( stats.loss.profit) }}</div>
+            </div>
+            <div class="col-xs-6 col-md-4 text-center">
+                <div class="blue center" id="chartWinRate"
+                     data-percent="{{ "{:,.2f}".format(stats.win_rate*100) }}"></div>
+                <div class="text-muted label-custom">WinRate</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Overall Trade Gain/Loss
+            </div>
+            <div class="panel-body">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        Trades
+                        <span class="pull-right">{{ stats.num_of_trades }}</span></div>
+                    {% set profit=stats.gain.profit - stats.loss.profit %}
+                    <div class="list-group-item">
+                        Largest Gain
+                        <span class="pull-right text-primary">
+                            {{ "{:,.2f}".format(stats.gain.largest) }}
+                        </span>
+                    </div>
+                    <div class="list-group-item">
+                        Largest Loss
+                        <span class="pull-right text-danger">
+                            {{ "{:,.2f}".format(stats.loss.largest) }}
+                        </span>
+                    </div>
+                    <div class="list-group-item">
+                        Gross Profit
+                        <span class="pull-right {{ 'text-primary' if profit > 0 else 'text-danger' }}">
+                            {{ "{:,.2f}".format(profit) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
