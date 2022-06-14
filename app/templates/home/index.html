@@ -10,7 +10,6 @@
     <!-- Donut Chart CSS -->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/percircle.css') }}">
 
-
 {% endblock %}
 {% block meta %}
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -24,8 +23,13 @@
     <!-- Donut Chart JS -->
     <script src="{{ url_for('static',filename='js/percircle.js') }}"></script>
 
+    <!-- Toast JS -->
+    <script src="{{ url_for('static',filename='js/toast.min.js') }}"></script>
+
     <!-- App Javascript -->
     <script src="{{ url_for('static',filename='js/utils.js') }}"></script>
+
+
 {% endblock %}
 {% block finally_scripts %}
 
@@ -38,6 +42,7 @@
                 order: [3, 'desc']
             });
 
+            <!-- Ajax -->
             checkboxAjax($('[name="freeroll"]'), '{{ url_for(".index") }}', function (data) {
                 let obj = JSON.parse(data);
                 for (let key in obj) {
@@ -47,9 +52,24 @@
                 }
             });
 
+
+            <!-- Donut Charts -->
             $("#chartGain").percircle();
             $("#chartLoss").percircle();
             $("#chartWinRate").percircle();
+
+            <!-- Render Toast -->
+            let toastMsg = '{{ session.pop("toast") if  session.get("toast") else None}}';
+            if (toastMsg !== "None") {
+                const options = {
+                    style: {
+                        main: {
+                            width: "50%"
+                        }
+                    }
+                };
+                iqwerty.toast.toast(toastMsg, options);
+            }
         });
     </script>
 {% endblock %}

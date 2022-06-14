@@ -1,6 +1,6 @@
 import datetime
 
-from flask import render_template, jsonify, json, request, redirect, url_for
+from flask import render_template, jsonify, json, request, redirect, url_for, session
 from sqlalchemy import desc
 
 from app import db
@@ -52,20 +52,21 @@ def index():
                     shares=form.shares.data,
                     ratio=form.profit_margin.data
                 ).create()
+
             else:
                 exist.shares = exist.shares + form.shares.data
                 # AP = SUM(Pn*Qn)/SUM(Qn)
                 exist.price = stockcal.avg_price(exist.price, exist.shares, trade.net_price, trade.shares)
-                exist.ratio = form.profit_margin.data
+                if form.profit_margin.data:
+                    exist.ratio = form.profit_margin.data
                 exist.create()
-
+            session['toast'] = '{} has purchased'.format(trade.symbol)
             return redirect(url_for('home.index'))
         elif request.form['action'] == 'SELL':
             # Action: SELL
             # Assert that stock exists and total shares for sale is less than or equal the holding shares
             if not exist:
-                form.symbol.errors.append('This field is invalid')
-
+                form.symbol.errors.append('{} is not holding '.format(form.symbol.data.upper()))
 
             elif form.shares.data <= exist.shares:
                 # New a trade with sell action
@@ -85,12 +86,10 @@ def index():
                     # Delete if holding shares is equal to 0
                     db.session.delete(exist)
                     db.session.commit()
-
+                session['toast'] = '{} has sold'.format(exist.symbol)
                 return redirect(url_for('home.index'))
-
             else:
-                form.shares.errors.append('This field is invalid')
-
+                form.shares.errors.append('Shares for sale is less than or equal to {}'.format(exist.shares))
 
     elif request.form.get('name') == 'freeroll':
         # handle Checkbox
