@@ -61,14 +61,7 @@
             <!-- Render Toast -->
             let toastMsg = '{{ session.pop("toast") if  session.get("toast") else None}}';
             if (toastMsg !== "None") {
-                const options = {
-                    style: {
-                        main: {
-                            width: "50%"
-                        }
-                    }
-                };
-                iqwerty.toast.toast(toastMsg, options);
+                iqwerty.toast.toast(toastMsg);
             }
         });
     </script>
