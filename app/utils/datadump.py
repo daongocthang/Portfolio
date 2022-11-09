@@ -72,9 +72,12 @@ class TradeStats:
             return {
                 'profit': abs(self.gross_exit - self.gross_entry),
                 'largest': self.largest,
-                'rate': abs(stockcal.profit_percent(self.gross_entry, self.gross_exit)),
+                'rate': abs(stockcal.profit_percent(self.gross_entry, self.gross_exit)) if not self.empty else 0,
                 'count': self.count
             }
+        
+        def empty(self):
+            return self.count == 0
 
     def __init__(self, trades):
         self.gain = self.Holder()
@@ -89,11 +92,15 @@ class TradeStats:
                 self.gain.append(t.average_price * t.shares, t.net_price * t.shares)
             else:
                 self.loss.append(t.average_price * t.shares, t.net_price * t.shares)
+        
+        if not all([self.gain.empty(),self.loss.empty()]):
+            self.win_rate = stockcal.win_rate(self.gain.count, self.loss.count)
+            
 
     def to_dict(self):
         return {
             'gain': self.gain.to_dict(),
             'loss': self.loss.to_dict(),
-            'win_rate': stockcal.win_rate(self.gain.count, self.loss.count),
+            'win_rate': self.win_rate,
             'num_of_trades': self.gain.count + self.loss.count
         }

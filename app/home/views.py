@@ -19,7 +19,7 @@ def index():
     models = Stock.query.all()
     dump_stocks = [m.dump() for m in models]
 
-    sold_trades = Trade.query.filter_by(order=0).all()
+    sold_trades = Trade.query.filter_by(order=0).all()    
     stats = TradeStats(sold_trades).to_dict()
 
     for s in dump_stocks:
