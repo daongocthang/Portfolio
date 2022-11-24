@@ -11,7 +11,7 @@ from app.utils.datadump import TradeStats
 from . import home
 
 FEES = {'ssi': 0.0025, 'tax': 0.001}
-RISK_REWARD = 2
+RISK_REWARD = 3
 
 
 @home.route('/', methods=['GET', 'POST'])

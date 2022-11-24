@@ -5,3 +5,6 @@ marshmallow-sqlalchemy
 flask-migrate
 flask-bootstrap
 Flask-WTF
+
+CONVERTER_1GB_1S_VTT-Bộ chuyển đổi quang điện AP1113-20A hiệu APTEK (Bao gồm Module SFP quang APS1115-20)
+CONVTER_1000_VTT-Media Convter: AP110-20/APTEk (Bao gồm Module quang: APS11350-20/APTEK
