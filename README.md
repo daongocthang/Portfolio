@@ -51,8 +51,8 @@
    </IfModule>  
    ```
 
-4. Restart the Apache service by the steps below
+4. Restart the Apache service in the following steps
 
-   **windows+R** --> type `services.msc` --> search `Apache24` --> Restart
+   **windows+R** --> type `services.msc` --> search `Apache24` --> restart
 
 5. Go to Browser http://localhost:5000
