@@ -35,7 +35,7 @@
 
    ```sh
    <IfModule wsgi_module>
-   	Listen 5000
+       Listen 5000
        <VirtualHost *:5000>
            ServerName 127.0.0.1
            WSGIScriptAlias / "/path/to/portfolio/run.wsgi"
@@ -53,6 +53,6 @@
 
 4. Restart the Apache service by the steps below
 
-   **windows+R** --> `services.msc` --> Apache24 -->Restart
+   **windows+R** --> type `services.msc` --> search `Apache24` --> Restart
 
 5. Go to Browser http://localhost:5000
