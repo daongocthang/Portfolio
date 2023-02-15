@@ -46,7 +46,7 @@
            WSGIApplicationGroup %{GLOBAL}
            
            ErrorLog "/path/to/portfolio/logs/error.log"
-           CustomLog "/path/to/portfolio/access.log" common
+           CustomLog "/path/to/portfolio/logs/access.log" common
        </VirtualHost>
    </IfModule>  
    ```
